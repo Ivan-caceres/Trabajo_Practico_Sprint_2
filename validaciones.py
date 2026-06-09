@@ -120,3 +120,23 @@ def validar_rango(texto:str, valor_minimo:float, valor_maximo:float) -> bool:
 
     return retorno
 
+#El sistema deberá validar opciones cerradas, es decir, valores que solo pueden pertenecer a un conjunto predefinido. 
+def validar_lista(texto:str, opciones:list) -> bool:
+    """Verifica si una cadena de texto coincide exactamente con alguno de los elementos pertenecientes a una lista de opciones válidas.
+
+    Args:
+        texto (str): Cadena de caracteres ingresada por el usuario a evaluar.
+        opciones (list): Lista de cadenas que representan el conjunto cerrado de opciones permitidas.
+
+    Returns:
+        bool: True si el texto se encuentra dentro de la lista de opciones, False en caso contrario.
+    """
+
+    retorno = False
+
+    for i in range(len(opciones)):
+
+        if texto == opciones[i]:
+            retorno = True
+
+    return retorno
