@@ -1,11 +1,12 @@
 from validaciones import (
-    validar_caracteres_flotantes,
-    validar_puntos,
-    validar_longitud_minima,
-    validar_numeros_negativos,
-    validar_inicio_fin,
-    validar_rango,
-    validar_lista
+validar_caracteres_flotantes,
+validar_puntos,
+validar_longitud_minima,
+validar_numeros_negativos,
+validar_inicio_fin,
+validar_rango,
+validar_lista,
+validar_texto
 )
 
 # INGRESO DE DATOS NUMERICOS
@@ -106,7 +107,6 @@ def ingresar_procesos_activos() -> float:
     """
     return pedir_numero("Ingrese Cantidad de procesos activos: ",0,1000)
 
-
 # INGRESO DE OPCIONES CERRADAS 
 def pedir_opcion (mensaje:str,lista_opciones:list) -> str: 
     """Solicita al usuario el ingreso de una opción y repite la petición de forma iterativa hasta que el valor ingresado 
@@ -159,6 +159,45 @@ def ingresar_tipo_servidor() -> str:
 
     opciones = ["Web", "Base de datos", "Archivos"]
     return pedir_opcion("Ingrese tipo de servidor (Web / Base de datos / Archivos): ",opciones)
+
+#INGRESO CADENAS
+def pedir_nombres(mensaje:str) -> str:
+    """Solicita un texto y repite el ingreso hasta obtener un valor válido.
+        -El texto debe tener al menos 5 caracteres
+        -No puede estar vacío
+        -No debe contener únicamente espacios.
+
+    Args:
+        mensaje (str): Mensaje mostrado al usuario para solicitar el dato.
+
+    Returns:
+        str: Texto validado ingresado por el usuario.
+    """
+
+    nombre = input(mensaje)
+
+    while validar_texto(nombre) == False:
+        print("Invalido")
+        print("Debe contener al menos 5 caracteres y no puede estar vacío ni contener solo espacios.")
+        nombre = input(mensaje)
+
+    return nombre
+#ingresar NOMBRES con REUTILIZACION DE LA FUNCION POR PARAMETROS PARA PEDIR NOMBRES
+def ingresar_nombre_servidor() -> str:
+    """Solicita y valida el nombre del servidor.
+
+    Returns:
+        str: Nombre del servidor validado.
+    """
+    return pedir_nombres("Ingresar nombre del servidor: ")
+
+def ingresar_nombre_administrador() -> str:
+    """Solicita y valida el nombre del administrador responsable.
+
+    Returns:
+        str: Nombre del administrador validado.
+    """
+    return pedir_nombres("Ingresar nombre del administrador responsable: ")
 
 
 
