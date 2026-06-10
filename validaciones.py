@@ -141,3 +141,49 @@ def validar_lista(texto:str, lista_opciones:list) -> bool:
             retorno = True
 
     return retorno
+
+# INGRESO CADENAS
+# def validar_nombre_servidor(cadena:str) -> bool:
+
+def validar_solo_espacios(texto:str) -> bool:
+    """Verifica que la cadena contenga al menos un carácter distinto de espacio.
+
+    Args:
+        texto (str): Cadena a validar.
+
+    Returns:
+        bool: True si existe al menos un carácter distinto de espacio, False si la cadena contiene únicamente espacios.
+    """
+
+    retorno = False
+
+    for c in texto:
+
+        if c != " ":
+            retorno = True
+            break
+
+    return retorno
+
+def validar_texto(texto:str) -> bool:
+    """Valida que un texto tenga una longitud mínima y no contenga solo espacios.
+
+    Args:
+        texto (str): Cadena a validar.
+
+    Returns:
+        bool: True si el texto es válido, False en caso contrario.
+    """    
+
+    retorno = True
+
+    if validar_longitud_minima(texto, 5) == False:
+        retorno = False
+
+    if validar_solo_espacios(texto) == False:
+        retorno = False
+
+    return retorno
+
+
+
