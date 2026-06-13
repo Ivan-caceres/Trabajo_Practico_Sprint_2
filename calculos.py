@@ -1,96 +1,109 @@
-from main import (
-uso_cpu,
-uso_ram,
-espacio_libre,
-usuarios_conectados,
-procesos_activos,
-)
-
-#PASAR TODAS LOS CALCULOS FUNCIONES y documentarlas
-
-def calcular_carga_total(uso_cpu:float,uso_ram:float)->float:
-    """Promedio de uso entre CPU y RAM. Carga total del sistema.
+def calcular_carga_total(uso_cpu:float,uso_ram:float)-> float:
+    """Calcula la carga total promedio del sistema.
 
     Args:
-        uso_cpu (float): Porcentaje de uso del CPU, entre 0 y 100.
-        uso_ram (float): Porcentaje de uso de la memoria RAM, entre 0 y 100.
+        uso_cpu (float): Porcentaje de uso del CPU.
+        uso_ram (float): Porcentaje de uso de la memoria RAM.
 
     Returns:
-        float: _description_
+        float: Promedio entre el uso de CPU y RAM.
     """
-    carga_total = (uso_cpu + uso_ram) / 2
-    return carga_total
 
-carga_total = calcular_carga_total
+    return (uso_cpu + uso_ram) / 2
 
-def calcular_recursos_disponibles(recursos_totales:float,recursos_en_uso:float) -> float:
-    """Calcular Porcentaje de recursos sin utilizar. Complemento de la carga_total.
+def calcular_recursos_disponibles(carga_total:float) -> float:
+    """Calcula el porcentaje de recursos disponibles del servidor.
 
     Args:
-        recursos_totales (float): 100
-        recursos_en_uso (float): Espacio libre en disco expresado en GB, mayor que 0.
+        carga_total (float): Porcentaje total de carga del sistema.
 
     Returns:
-        float: _description_
+        float: Porcentaje de recursos disponibles.
     """
-    recursos_disponibles = 100 - carga_total
-    return recursos_disponibles
+
+    return 100 - carga_total
      
-recursos_disponibles = calcular_recursos_disponibles
-
-def calcular_uso_por_proceso(uso_cpu:float,uso_ram:float,procesos_activos)-> float:
-    """Carga promedio por proceso activo. Cociente de la sumatoria entre uso del CPU y ram, y la cantidad de procesos activos
+def calcular_uso_por_proceso(uso_cpu:float, uso_ram:float, procesos_activos)-> float:
+    """Calcula la carga promedio generada por cada proceso activo.
 
     Args:
-        uso_cpu (float): _description_
-        uso_ram (float): _description_
-        procesos_activos (_type_): _description_
+        uso_cpu (float): Porcentaje de uso del CPU.
+        uso_ram (float): Porcentaje de uso de la memoria RAM.
+        procesos_activos (int): Cantidad de procesos activos.
 
     Returns:
-        float: _description_
+        float: Carga promedio por proceso. Devuelve 0 si no existen procesos activos.
     """
-    uso_por_proceso = (uso_cpu + uso_ram) / procesos_activos
-    return uso_por_proceso
-     
-uso_por_proceso = calcular_uso_por_proceso
 
+    if procesos_activos > 0:
+        retorno = (uso_cpu + uso_ram) / procesos_activos
+    else:
+        retorno = 0
+
+    return retorno
+     
 def calcular_ratio_usuario(usuarios_conectados:float, recursos_disponibles:float) -> float:
-    """Relación entre los usuarios conectados y los recursos disponibles. Retorna inf(indeterminado) si los recursos disponibles son cero.
+    """Calcula la relación entre usuarios conectados y recursos disponibles.
 
     Args:
-        usuarios_conectados (float): Cantidad de usuarios conectados, mayor que 0.
-        recursos_disponibles (float): Porcentaje de recursos sin utilizar. Complemento de la carga_total.
+        usuarios_conectados (int): Cantidad de usuarios conectados.
+        recursos_disponibles (float): Porcentaje de recursos disponibles.
 
     Returns:
-        float: _description_
+        float: Ratio usuarios/recursos. Devuelve 0 si no hay recursos disponibles.
     """
-    ratio_usuario = usuarios_conectados / recursos_disponibles
-    return ratio_usuario
-     
-ratio_usuario = calcular_ratio_usuario
-#------------------------------------------------------------------------------
-if procesos_activos > 0:
-        uso_por_proceso = (uso_cpu + uso_ram) / procesos_activos
-else:
-        uso_por_proceso = 0
 
-if recursos_disponibles > 0:
-        ratio_usuario = usuarios_conectados / recursos_disponibles
-# nivel_riesgo (str): Clasificación de riesgo del sistema, de forma descendente "Critico", "Alto", "Medio, "Bajo".
-if carga_total > 85 or espacio_libre < 5:
-    nivel_riesgo = "Critico"
-elif carga_total > 65 or espacio_libre < 15:
-    nivel_riesgo = "Alto"
-elif carga_total > 40:
-    nivel_riesgo = "Medio"
-else:
-    nivel_riesgo = "Bajo"
-#estado_general (str): Descripción del estado actual del servidor dependiendo del nivel de riesgo que devolvió.
-if nivel_riesgo == "Critico":
-    estado_general = "Estado del sistema en peligro"
-elif nivel_riesgo == "Alto":
-    estado_general = "Estado del sistema en grave estres"
-elif nivel_riesgo == "Medio":
-    estado_general = "Estado del sistema en leve estres"
-else:
-    estado_general = "Estado del sistema normal"
+    if recursos_disponibles > 0:
+        retorno = usuarios_conectados / recursos_disponibles
+    else:
+        retorno = 0
+    return retorno
+     
+def determinar_nivel_riesgo(carga_total:float, espacio_libre:float) -> str:
+    """Determina el nivel de riesgo del servidor.
+
+    Args:
+        carga_total (float): Porcentaje de carga total del sistema.
+        espacio_libre (float): Espacio libre disponible en disco.
+
+    Returns:
+        str: Nivel de riesgo calculado ("Critico", "Alto", "Medio" o "Bajo").
+    """
+
+    if carga_total > 85 or espacio_libre < 5:
+        retorno = "Critico"
+
+    elif carga_total > 65 or espacio_libre < 15:
+        retorno = "Alto"
+
+    elif carga_total > 40:
+        retorno = "Medio"
+
+    else:
+        retorno = "Bajo"
+
+    return retorno
+
+def determinar_estado_general(nivel_riesgo:str) -> str:
+    """Obtiene una descripción general del estado del servidor.
+
+    Args:
+        nivel_riesgo (str): Nivel de riesgo calculado para el sistema.
+
+    Returns:
+        str: Descripción del estado general del servidor.
+    """
+
+    if nivel_riesgo == "Critico":
+        retorno = "Estado del sistema en peligro"
+
+    elif nivel_riesgo == "Alto":
+        retorno = "Estado del sistema en grave estres"
+
+    elif nivel_riesgo == "Medio":
+        retorno = "Estado del sistema en leve estres"
+
+    else:
+        retorno = "Estado del sistema normal"
+
+    return retorno

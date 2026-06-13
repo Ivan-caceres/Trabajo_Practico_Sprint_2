@@ -1,12 +1,12 @@
 from validaciones import (
-validar_caracteres_flotantes,
-validar_puntos,
-validar_longitud_minima,
-validar_numeros_negativos,
-validar_inicio_fin,
-validar_rango,
-validar_lista,
-validar_texto
+    validar_caracteres_flotantes,
+    validar_puntos,
+    validar_longitud_minima,
+    validar_numeros_negativos,
+    validar_inicio_fin,
+    validar_rango,
+    validar_lista,
+    validar_texto
 )
 
 # INGRESO DE DATOS NUMERICOS
@@ -34,39 +34,39 @@ def pedir_numero(mensaje:str, minimo:float, maximo:float) -> float:
     while ingreso_valido == False:
 
         bandera_validada = True
-
-        if validar_longitud_minima(numero,1) == False:
-            print("NO PUEDE ESTAR VACIO")
+                    
+        if validar_longitud_minima(numero,1) == False:            
+            print("------------------¡¡NO PUEDE ESTAR VACIO!!------------------")
             bandera_validada = False
         
         if validar_caracteres_flotantes(numero) == False:
-            print("SE DEBEN INGRESAR NUMEROS")
+            print("---------------¡¡SE DEBEN INGRESAR NUMEROS!!----------------")
             bandera_validada = False
 
         if validar_puntos(numero) == False:
-            print("MAS DE UN PUNTO DECIMAL")
+            print("----------------¡¡MAS DE UN PUNTO DECIMAL!!-----------------")
             bandera_validada = False
         
         if validar_numeros_negativos(numero) == False:
-            print("FUERA DE RANGO, NO SE PERMITEN NEGATIVOS")
+            print("--------¡¡FUERA DE RANGO, NO SE PERMITEN NEGATIVOS!!--------")
             bandera_validada = False
         
         if validar_inicio_fin(numero) == False:
-            print("FORMATO INCORRECTO")
+            print("-------------------¡¡FORMATO INCORRECTO!!-------------------")
             bandera_validada = False
 
         if bandera_validada and validar_rango (numero,minimo,maximo) == False:
-            print(f"FUERA DE RANGO.({minimo}/{maximo})")
+            print(f"--¡¡FUERA DE RANGO (ingresar n° de {minimo} a {maximo})!!--")
             bandera_validada = False
         
         if bandera_validada:
             ingreso_valido = True
         else:
-            print("-----------INVALIDO-----------")
+            print("-------------------------INVALIDO---------------------------")
             numero = input("Reingrese un número válido: ")
 
     return float(numero)
-#ingresar numeros con REUTILIZACION DE LA FUNCION POR PARAMETROS PARA PEDIR NUMERO
+
 def ingresar_uso_cpu() -> float:
     """Solicita el porcentaje de uso actual del CPU.
 
@@ -124,12 +124,12 @@ def pedir_opcion (mensaje:str,lista_opciones:list) -> str:
 
     while validar_lista(opcion, lista_opciones) == False:
 
-        print("INVÁLIDA")
+        print("--------------------------INVÁLIDA--------------------------")
 
         opcion = input(f"Re{mensaje}")
 
     return opcion
-#ingresar opciones con REUTILIZACION DE LA FUNCION POR PARAMETROS PARA PEDIR OPCION
+
 def ingresar_sistema_operativo() -> str:
     """Solicita el sistema operativo del servidor.
 
@@ -177,12 +177,12 @@ def pedir_nombres(mensaje:str) -> str:
     nombre = input(mensaje)
 
     while validar_texto(nombre) == False:
-        print("Invalido")
-        print("Debe contener al menos 5 caracteres y no puede estar vacío ni contener solo espacios.")
+        print("--------------------------Invalido--------------------------")
+        print("-----Al menos 5 caracteres y no contener solo espacios.-----")
         nombre = input(mensaje)
 
     return nombre
-#ingresar NOMBRES con REUTILIZACION DE LA FUNCION POR PARAMETROS PARA PEDIR NOMBRES
+
 def ingresar_nombre_servidor() -> str:
     """Solicita y valida el nombre del servidor.
 

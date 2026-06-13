@@ -61,7 +61,7 @@ def validar_longitud_minima(cadena:str,minimo:int) -> bool:
         retorno = True
 
     return retorno
-#puedo sumarlo a la validacion por rango con un if..si es menor a 0
+
 def validar_numeros_negativos(texto:str) -> bool:
     """Valida que el número ingresado no sea negativo.
 
@@ -182,6 +182,3 @@ def validar_texto(texto:str) -> bool:
         retorno = False
 
     return retorno
-
-
-
