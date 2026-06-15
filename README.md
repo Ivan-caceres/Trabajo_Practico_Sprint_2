@@ -234,7 +234,9 @@ while i < len(alertas):
 - Breve explicación del flujo de decisión. 
 - Ejemplo de ejecución real. 
 ### Resultado esperado (ejemplo)
-"AGREGAR foto de ejemplo"
+
+![Ejemplo de Salida del sistema.](/ejemplo_output.png "Ejemplo de Salida")
+
 ***
 ### Flujo esperado del sistema 
     main()
